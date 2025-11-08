@@ -1,4 +1,4 @@
-package validator_test 
+package validator_test
 
 import (
 	"scene-keeper/internal/validator"
@@ -12,9 +12,9 @@ func TestValidateData(t *testing.T) {
 		data       string
 		shouldFail bool
 	}{
-		{"valid scene", "../../schema/scene.schema.json", "../../examples/valid_scene.json", false},
-		{"empty scene", "../../schema/scene.schema.json", "../../examples/empty_scene.json", false},
-		{"invalid scene", "../../schema/scene.schema.json", "../../examples/invalid_scene.json", true},
+		{"valid scene", "../../../schema/scene.schema.json", "../../../examples/valid_scene.json", false},
+		{"empty scene", "../../../schema/scene.schema.json", "../../../examples/empty_scene.json", false},
+		{"invalid scene", "../../../schema/scene.schema.json", "../../../examples/invalid_scene.json", true},
 	}
 
 	for _, tt := range tests {

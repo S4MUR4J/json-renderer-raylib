@@ -1,3 +1,6 @@
 # IDE
 
 .vscode/
+
+# Test artifacts
+coverage.out

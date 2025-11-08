@@ -1,0 +1,13 @@
+#!/bin/sh
+echo "Checking format..."
+go fmt ./...
+go vet ./...
+
+echo "Checking linting..."
+cd src/validator
+golangci-lint run || exit 1
+
+echo "Running tests..."
+go test ./... -v || exit 1
+
+echo "Everything ok, changes commited!"
