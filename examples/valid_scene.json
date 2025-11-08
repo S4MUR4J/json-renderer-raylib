@@ -1,0 +1,17 @@
+{
+  "entities": [
+    {
+      "id": "entity1",
+      "components": {
+        "component1": { "data": [0, 0, 0] },
+        "component2": { "source": "path/to/file" }
+      }
+    },
+    {
+      "id": "entity2",
+      "components": { 
+        "component1": { "data": [0, 0, 0] }
+      }
+    }
+  ]
+}
