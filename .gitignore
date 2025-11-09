@@ -1,6 +1,8 @@
 # IDE
-
 .vscode/
+
+# Builds
+**/build/
 
 # Test artifacts
 coverage.out
