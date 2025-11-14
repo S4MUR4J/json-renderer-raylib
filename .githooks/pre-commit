@@ -1,13 +1,67 @@
 #!/bin/sh
-echo "Checking format..."
-go fmt ./...
-go vet ./...
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT" || {
+    echo "Cannot enter repository root."
+    exit 1
+}
+
+echo "----------------------------------------"
+echo "Checking GO format, style and tests..."
+echo "----------------------------------------"
+
+echo "Checking Go format..."
+if [ -n "$(go fmt ./...)" ]; then
+    echo "Go code is not formatted."
+    exit 1
+fi
 
 echo "Checking linting..."
-cd src/validator
-golangci-lint run || exit 1
+(
+    cd src/validator || exit 1
+    golangci-lint run
+) || {
+    echo "golangci-lint detected issues."
+    exit 1
+}
 
 echo "Running tests..."
-go test ./... -v || exit 1
+(
+    cd src/validator || exit 1
+    go test ./... -v
+) || {
+    echo "Go tests failed."
+    exit 1
+}
 
-echo "Everything ok, changes commited!"
+echo "----------------------------------------"
+echo "Checking C++ format and style (clang)..."
+echo "----------------------------------------"
+
+cd "$REPO_ROOT" || exit 1
+cd "src/viewer" || exit 1
+CPP_FILES=$(find src -type f \( -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \))
+
+if [ -n "$CPP_FILES" ]; then
+
+
+    echo "Running clang-format check..."
+    if ! clang-format --dry-run --Werror $CPP_FILES; then
+        echo "C++ files are not formatted."
+        exit 1
+    fi
+
+#    echo "Running clang-tidy check..."
+#    BUILD_DIR="build/debug"
+#    if ! clang-tidy $CPP_FILES -p "$BUILD_DIR" --quiet; then
+#        echo "clang-tidy detected issues."
+#        exit 1
+#    fi
+
+else
+    echo "No C++ files found. Skipping clang checks."
+fi
+
+echo "----------------------------------------"
+echo "All checks passed. Proceeding with commit."
+echo "----------------------------------------"

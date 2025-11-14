@@ -1,8 +1,10 @@
 # IDE
+.idea/
 .vscode/
 
 # Builds
 **/build/
+**/cmake-build-debug/
 
 # Test artifacts
 coverage.out

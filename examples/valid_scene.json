@@ -3,14 +3,51 @@
     {
       "id": "entity1",
       "components": {
-        "component1": { "data": [0, 0, 0] },
-        "component2": { "source": "path/to/file" }
+        "transform": {
+          "position": [
+            1,
+            5,
+            1
+          ],
+          "scale": [
+            3,
+            3,
+            3
+          ]
+        },
+        "material": {
+          "rgb": [
+            100,
+            200,
+            100
+          ],
+          "a": 255 
+        }
       }
     },
     {
       "id": "entity2",
-      "components": { 
-        "component1": { "data": [0, 0, 0] }
+      "components": {
+        "transform": {
+          "position": [
+            3,
+            0,
+            3
+          ],
+          "scale": [
+            1,
+            2,
+            3
+          ]
+        },
+        "material": {
+          "rgb": [
+            200,
+            200,
+            100
+          ],
+          "a": 255 
+        }
       }
     }
   ]
