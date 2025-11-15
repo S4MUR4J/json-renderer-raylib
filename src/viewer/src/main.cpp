@@ -16,8 +16,8 @@ constexpr int FPS_STATS_SPACING = 10;
 
 auto validateInput(int argc, char** argv) -> bool;
 auto gameInit(const Scene& scene) -> void;
-auto getCamera() -> Camera3D;
-auto gameLoop(const Camera3D& camera, const Scene& scene) -> void;
+auto getCamera() -> Camera;
+auto gameLoop(Camera& camera, const Scene& scene) -> void;
 auto drawScene(const Scene& scene) -> void;
 
 auto main(const int argc, char** argv) -> int {
@@ -48,16 +48,17 @@ auto validateInput(const int argc, char** argv) -> bool {
 
 auto gameInit(const Scene& scene) -> void {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, APP_NAME);
+  DisableCursor();
   SetTargetFPS(TARGET_FPS);
 
-  const auto camera = getCamera();
+  auto camera = getCamera();
 
   gameLoop(camera, scene);
 }
 
-auto getCamera() -> Camera3D {
-  Camera3D camera{};
-  camera.position = Vector3{0.0F, 10.0F, 10.0F};
+auto getCamera() -> Camera {
+  Camera camera{};
+  camera.position = Vector3{10.0F, 10.0F, 10.0F};
   camera.target = Vector3{0.0F, 0.0F, 0.0F};
   camera.up = Vector3{0.0F, 1.0F, 0.0F};
   camera.fovy = CAMERA_FOVY;
@@ -66,8 +67,10 @@ auto getCamera() -> Camera3D {
 }
 
 // TODO: ImGUI?!
-auto gameLoop(const Camera3D& camera, const Scene& scene) -> void {
+auto gameLoop(Camera& camera, const Scene& scene) -> void {
   while (!WindowShouldClose()) {
+    UpdateCamera(&camera, CAMERA_THIRD_PERSON);
+
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
