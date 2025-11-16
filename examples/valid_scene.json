@@ -1,6 +1,30 @@
 {
   "entities": [
     {
+      "id": "camera",
+      "components": {
+        "camera": {
+          "position": [
+            10,
+            10,
+            10
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "fovy": 45,
+          "projection": 0
+        }
+      }
+    },
+    {
       "id": "entity1",
       "components": {
         "transform": {
@@ -21,7 +45,7 @@
             200,
             100
           ],
-          "a": 255 
+          "a": 255
         }
       }
     },
@@ -46,7 +70,7 @@
             200,
             100
           ],
-          "a": 255 
+          "a": 255
         }
       }
     }

@@ -66,6 +66,7 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
         const auto& position = componentJson.at("position");
         const auto& scale = componentJson.at("scale");
 
+        entity.isTransform = true;
         entity.transformComponent.position = Vector3{
             position[0].get<float>(),
             position[1].get<float>(),
@@ -78,6 +79,7 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
             scale[2].get<float>(),
         };
       } else if (componentName == "material") {
+        entity.isMaterial = true;
         const auto& rgb = componentJson.at("rgb");
         const auto& alpha = componentJson.at("a");
 
@@ -85,6 +87,31 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
         entity.materialComponent.g = rgb[1].get<unsigned char>();
         entity.materialComponent.b = rgb[2].get<unsigned char>();
         entity.materialComponent.a = alpha.get<unsigned char>();
+      } else if (componentName == "camera") {
+        entity.isCamera = true;
+        const auto& position = componentJson.at("position");
+        const auto& target = componentJson.at("target");
+        const auto& up = componentJson.at("up");
+        const auto& fovy = componentJson.at("fovy");
+        const auto& projection = componentJson.at("projection");
+
+        entity.cameraComponent.position = Vector3{
+            position[0].get<float>(),
+            position[1].get<float>(),
+            position[2].get<float>(),
+        };
+        entity.cameraComponent.target = Vector3{
+            target[0].get<float>(),
+            target[1].get<float>(),
+            target[2].get<float>(),
+        };
+        entity.cameraComponent.up = Vector3{
+            up[0].get<float>(),
+            up[1].get<float>(),
+            up[2].get<float>(),
+        };
+        entity.cameraComponent.fovy = fovy.get<float>();
+        entity.cameraComponent.projection = projection.get<int>();
       } else {
         TraceLog(LOG_WARNING, "Component not implemented %s.", componentName.c_str());
       }

@@ -16,7 +16,7 @@ constexpr int FPS_STATS_SPACING = 10;
 
 auto validateInput(int argc, char** argv) -> bool;
 auto gameInit(const Scene& scene) -> void;
-auto getCamera() -> Camera;
+auto getCamera(const Scene& scene) -> std::optional<Camera>;
 auto gameLoop(Camera& camera, const Scene& scene) -> void;
 auto drawScene(const Scene& scene) -> void;
 
@@ -51,19 +51,32 @@ auto gameInit(const Scene& scene) -> void {
   DisableCursor();
   SetTargetFPS(TARGET_FPS);
 
-  auto camera = getCamera();
+  auto camera = getCamera(scene);
+  if (!camera) {
+    return;
+  }
 
-  gameLoop(camera, scene);
+  gameLoop(camera.value(), scene);
 }
 
-auto getCamera() -> Camera {
+auto getCamera(const Scene& scene) -> std::optional<Camera> {
   Camera camera{};
-  camera.position = Vector3{10.0F, 10.0F, 10.0F};
-  camera.target = Vector3{0.0F, 0.0F, 0.0F};
-  camera.up = Vector3{0.0F, 1.0F, 0.0F};
-  camera.fovy = CAMERA_FOVY;
-  camera.projection = CAMERA_PERSPECTIVE;
-  return camera;
+
+  for (const auto& entity : scene.entities) {
+    if (entity.isCamera) {
+      const auto& [position, target, up, fovy, projection] = entity.cameraComponent;
+      camera.position = position;
+      camera.target = target;
+      camera.up = up;
+      camera.fovy = fovy;
+      camera.projection = projection;
+
+      return camera;
+    }
+  }
+
+  TraceLog(LOG_ERROR, "No camera found in scene.");
+  return std::nullopt;
 }
 
 // TODO: ImGUI?!
