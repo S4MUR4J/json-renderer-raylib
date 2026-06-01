@@ -70,5 +70,5 @@ make run SCENE=examples/valid_scene.json
 
 | Action             | Key |
 |--------------------|-----|
-| Toggle camera mode | C   |
+| Toggle camera mode | E   |
 | Quit               | ESC |
