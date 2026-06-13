@@ -16,12 +16,7 @@ auto SceneManager::loadScene() -> std::optional<Scene> {
   _scene = sceneOpt.value();
   TraceLog(LOG_INFO, "Scene loaded successfully from: %s", _scenePath);
 
-  if (const auto cameraOpt = getCamera(_scene)) {
-    _camera = cameraOpt.value();
-    TraceLog(LOG_INFO, "Camera loaded from scene");
-  } else {
-    TraceLog(LOG_WARNING, "No camera found in scene, keeping previous camera");
-  }
+  _camera = getCamera(_scene);
 
   updateFileModTime();
   return _scene;
@@ -51,7 +46,18 @@ auto SceneManager::updateFileModTime() -> void {
   _lastFileModTime = GetFileModTime(_scenePath);
 }
 
-auto SceneManager::getCamera(const Scene& scene) -> std::optional<Camera> {
+auto SceneManager::spawnBaseCamera() -> Camera {
+  Camera camera{};
+  camera.position = {.x = 10.0F, .y = 10.0F, .z = 10.0F};
+  camera.target = {.x = 0.0F, .y = 0.0F, .z = 0.0F};
+  camera.up = {.x = 0.0F, .y = 1.0F, .z = 0.0F};
+  camera.fovy = 45.0F;
+  camera.projection = CAMERA_PERSPECTIVE;
+  return camera;
+}
+
+auto SceneManager::getCamera(const Scene& scene) -> Camera
+{
   for (const auto& entity : scene.entities) {
     if (!entity.isCamera) {
       continue;
@@ -66,8 +72,10 @@ auto SceneManager::getCamera(const Scene& scene) -> std::optional<Camera> {
     camera.fovy = fovy;
     camera.projection = projection;
 
+    TraceLog(LOG_INFO, "Camera loaded from scene");
     return camera;
   }
 
-  return std::nullopt;
+  TraceLog(LOG_WARNING, "No camera found in scene, using base camera");
+  return spawnBaseCamera();
 }

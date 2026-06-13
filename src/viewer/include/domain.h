@@ -37,6 +37,8 @@ struct Entity {
 };
 
 struct Scene {
+  std::string version;
+  int sceneVersion{};
   std::vector<Entity> entities;
 };
 

@@ -25,7 +25,8 @@ class SceneManager {
 
  private:
   auto updateFileModTime() -> void;
-  static auto getCamera(const Scene& scene) -> std::optional<Camera>;
+  static auto spawnBaseCamera() -> Camera;
+  static auto getCamera(const Scene& scene) -> Camera;
 
   const char* _scenePath;
   Scene _scene;

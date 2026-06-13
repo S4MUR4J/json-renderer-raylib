@@ -1,4 +1,6 @@
 {
+  "version": "1.0",
+  "scene_version": 1,
   "entities": [
     {
       "id": "camera",

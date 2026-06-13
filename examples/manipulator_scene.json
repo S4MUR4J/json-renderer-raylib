@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "scene_version": 3,
+  "entities": [
+    {
+      "id": "ea507a30",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0,
+            1
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "mesh_filter": {
+          "geometry": "Cube"
+        },
+        "mesh_renderer": {
+          "color": "#ffffff",
+          "opacity": 1,
+          "metalness": 0,
+          "roughness": 0.5
+        },
+        "entity_name": {
+          "value": "Block"
+        }
+      }
+    },
+    {
+      "id": "4186397a",
+      "components": {
+        "transform": {
+          "position": [
+            1,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "mesh_filter": {
+          "geometry": "Sphere"
+        },
+        "mesh_renderer": {
+          "color": "#ffffff",
+          "opacity": 1,
+          "metalness": 0,
+          "roughness": 0.5
+        },
+        "entity_name": {
+          "value": "Earth"
+        }
+      }
+    },
+    {
+      "id": "6965e50e",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            1,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "mesh_filter": {
+          "geometry": "Pyramid"
+        },
+        "mesh_renderer": {
+          "color": "#ffffff",
+          "opacity": 1,
+          "metalness": 0,
+          "roughness": 0.5
+        },
+        "entity_name": {
+          "value": "Triangle"
+        }
+      }
+    }
+  ]
+}

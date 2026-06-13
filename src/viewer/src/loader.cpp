@@ -54,6 +54,9 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
   Scene scene{};
   std::vector<Entity> entities;
 
+  scene.version = sceneJson.at("version").get<std::string>();
+  scene.sceneVersion = sceneJson.at("scene_version").get<int>();
+
   const auto& entitiesJson = sceneJson.at("entities");
   entities.reserve(entitiesJson.size());
 
