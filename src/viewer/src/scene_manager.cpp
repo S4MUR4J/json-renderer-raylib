@@ -24,19 +24,24 @@ auto SceneManager::loadScene() -> std::optional<Scene> {
 
 auto SceneManager::reloadIfSceneFileChanged() -> bool {
   const long currentFileModTime = GetFileModTime(_scenePath);
+  const bool fileChanged = currentFileModTime != _lastFileModTime && currentFileModTime != 0;
 
-  if (currentFileModTime == _lastFileModTime || currentFileModTime == 0) {
+  if (!fileChanged && !_pendingReload) {
     return false;
   }
 
-  _lastFileModTime = currentFileModTime;
+  if (fileChanged) {
+    _lastFileModTime = currentFileModTime;
+  }
 
   const Camera savedCamera = _camera;
   const auto sceneOpt = this->loadScene();
   if (!sceneOpt) {
-    TraceLog(LOG_ERROR, "Failed to auto-reload scene");
+    _pendingReload = true;
     return false;
   }
+
+  _pendingReload = false;
   _scene = sceneOpt.value();
   _camera = savedCamera;
 

@@ -32,4 +32,5 @@ class SceneManager {
   Scene _scene;
   Camera _camera;
   long _lastFileModTime;
+  bool _pendingReload = false;
 };
