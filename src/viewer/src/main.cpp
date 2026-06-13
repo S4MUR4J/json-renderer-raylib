@@ -77,9 +77,7 @@ auto gameLoop(SceneManager& sceneManager, InputManager& inputManager, ViewerStat
   while (!WindowShouldClose()) {
     inputManager.updateInput();
 
-    if (sceneManager.reloadIfSceneFileChanged()) {
-      camera = sceneManager.getCamera();
-    }
+    sceneManager.reloadIfSceneFileChanged();
 
     if (viewerState.cameraControlMode) {
       UpdateCamera(&camera, CAMERA_THIRD_PERSON);

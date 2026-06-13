@@ -31,12 +31,14 @@ auto SceneManager::reloadIfSceneFileChanged() -> bool {
 
   _lastFileModTime = currentFileModTime;
 
+  const Camera savedCamera = _camera;
   const auto sceneOpt = this->loadScene();
   if (!sceneOpt) {
     TraceLog(LOG_ERROR, "Failed to auto-reload scene");
     return false;
   }
   _scene = sceneOpt.value();
+  _camera = savedCamera;
 
   TraceLog(LOG_INFO, "Scene auto-reloaded from file change");
   return true;
