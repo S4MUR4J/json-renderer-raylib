@@ -71,25 +71,20 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
 
         entity.isTransform = true;
         entity.transformComponent.position = Vector3{
-            position[0].get<float>(),
-            position[1].get<float>(),
-            position[2].get<float>(),
+            .x=position[0].get<float>(),
+            .y=position[1].get<float>(),
+            .z=position[2].get<float>(),
         };
 
         entity.transformComponent.scale = Vector3{
-            scale[0].get<float>(),
-            scale[1].get<float>(),
-            scale[2].get<float>(),
+            .x=scale[0].get<float>(),
+            .y=scale[1].get<float>(),
+            .z=scale[2].get<float>(),
         };
-      } else if (componentName == "material") {
-        entity.isMaterial = true;
-        const auto& rgb = componentJson.at("rgb");
-        const auto& alpha = componentJson.at("a");
-
-        entity.materialComponent.r = rgb[0].get<unsigned char>();
-        entity.materialComponent.g = rgb[1].get<unsigned char>();
-        entity.materialComponent.b = rgb[2].get<unsigned char>();
-        entity.materialComponent.a = alpha.get<unsigned char>();
+      } else if (componentName == "mesh_renderer") {
+        entity.isMeshRenderer = true;
+        entity.materialComponent.color   = componentJson.at("color").get<std::string>();
+        entity.materialComponent.opacity = componentJson.at("opacity").get<float>();
       } else if (componentName == "camera") {
         entity.isCamera = true;
         const auto& position = componentJson.at("position");

@@ -20,17 +20,15 @@ struct TransformComponent {
 };
 
 struct MaterialComponent {
-  unsigned char r{};
-  unsigned char g{};
-  unsigned char b{};
-  unsigned char a{};
+  std::string color{"#ffffff"};
+  float opacity{1.0F};
 };
 
 struct Entity {
   std::string id;
   bool isCamera = false;
   bool isTransform = false;
-  bool isMaterial = false;
+  bool isMeshRenderer = false;
   CameraComponent cameraComponent{};
   TransformComponent transformComponent{};
   MaterialComponent materialComponent{};

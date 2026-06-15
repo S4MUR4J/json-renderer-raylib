@@ -1,5 +1,7 @@
 ﻿#include "renderer.h"
 
+#include <string>
+
 #include "raylib.h"
 
 Renderer::Renderer() : _sceneRenderEnable(true), _guiRenderEnable(true) {
@@ -27,12 +29,23 @@ auto Renderer::render(const Scene& scene, const Camera& camera) const -> void {
   EndDrawing();
 }
 
+static auto HexToColor(const std::string& hex, float opacity) -> Color {
+  const unsigned long rgb = std::stoul(hex.substr(1), nullptr, 16);
+  return Color{
+      .r = static_cast<unsigned char>(rgb >> 16 & 0xFF),
+      .g = static_cast<unsigned char>(rgb >> 8 & 0xFF),
+      .b = static_cast<unsigned char>(rgb & 0xFF),
+      .a = static_cast<unsigned char>(opacity * 255.0F),
+  };
+}
+
 auto Renderer::renderScene(const Scene& scene) -> void {
   for (const auto& entity : scene.entities) {
-    const auto* const transform = &entity.transformComponent;
-    const auto* const material = &entity.materialComponent;
+    if (!entity.isMeshRenderer) { continue;
+}
 
-    const Color color{.r = material->r, .g = material->g, .b = material->b, .a = material->a};
+    const auto* const transform = &entity.transformComponent;
+    const Color color = HexToColor(entity.materialComponent.color, entity.materialComponent.opacity);
     DrawCube(transform->position, transform->scale.x, transform->scale.y, transform->scale.z, color);
     DrawCubeWires(transform->position, transform->scale.x, transform->scale.y, transform->scale.z, GRAY);
   }
