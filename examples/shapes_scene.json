@@ -1,0 +1,106 @@
+{
+  "version": "1.0",
+  "scene_version": 1,
+  "entities": [
+    {
+      "id": "camera",
+      "components": {
+        "camera": {
+          "position": [14, 10, 14],
+          "target": [0, 0, 0],
+          "up": [0, 1, 0],
+          "fovy": 45,
+          "projection": 0
+        }
+      }
+    },
+    {
+      "id": "cube",
+      "components": {
+        "transform": {
+          "position": [-4.5, 0.5, -2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Cube" },
+        "mesh_renderer": { "color": "#cc4444", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "sphere",
+      "components": {
+        "transform": {
+          "position": [-1.5, 0.5, -2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Sphere" },
+        "mesh_renderer": { "color": "#44cc44", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "cylinder",
+      "components": {
+        "transform": {
+          "position": [1.5, 0.5, -2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Cylinder" },
+        "mesh_renderer": { "color": "#4444cc", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "cone",
+      "components": {
+        "transform": {
+          "position": [4.5, 0.5, -2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Cone" },
+        "mesh_renderer": { "color": "#cccc44", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "capsule",
+      "components": {
+        "transform": {
+          "position": [-4.5, 0.5, 2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Capsule" },
+        "mesh_renderer": { "color": "#44cccc", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "plane",
+      "components": {
+        "transform": {
+          "position": [-1.5, 0, 2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Plane" },
+        "mesh_renderer": { "color": "#888888", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "torus",
+      "components": {
+        "transform": {
+          "position": [1.5, 0.5, 2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Torus" },
+        "mesh_renderer": { "color": "#cc44cc", "opacity": 1.0 }
+      }
+    },
+    {
+      "id": "hemisphere",
+      "components": {
+        "transform": {
+          "position": [4.5, 0, 2],
+          "scale": [1, 1, 1]
+        },
+        "mesh_filter": { "geometry": "Hemisphere" },
+        "mesh_renderer": { "color": "#cc8844", "opacity": 1.0 }
+      }
+    }
+  ]
+}

@@ -85,6 +85,9 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
         entity.isMeshRenderer = true;
         entity.materialComponent.color   = componentJson.at("color").get<std::string>();
         entity.materialComponent.opacity = componentJson.at("opacity").get<float>();
+      } else if (componentName == "mesh_filter") {
+        entity.isMeshFilter = true;
+        entity.meshFilterComponent.geometry = componentJson.at("geometry").get<std::string>();
       } else if (componentName == "camera") {
         entity.isCamera = true;
         const auto& position = componentJson.at("position");
@@ -94,19 +97,19 @@ auto Loader::LoadScene(const json& sceneJson) -> Scene {
         const auto& projection = componentJson.at("projection");
 
         entity.cameraComponent.position = Vector3{
-            position[0].get<float>(),
-            position[1].get<float>(),
-            position[2].get<float>(),
+            .x=position[0].get<float>(),
+            .y=position[1].get<float>(),
+            .z=position[2].get<float>(),
         };
         entity.cameraComponent.target = Vector3{
-            target[0].get<float>(),
-            target[1].get<float>(),
-            target[2].get<float>(),
+            .x=target[0].get<float>(),
+            .y=target[1].get<float>(),
+            .z=target[2].get<float>(),
         };
         entity.cameraComponent.up = Vector3{
-            up[0].get<float>(),
-            up[1].get<float>(),
-            up[2].get<float>(),
+            .x=up[0].get<float>(),
+            .y=up[1].get<float>(),
+            .z=up[2].get<float>(),
         };
         entity.cameraComponent.fovy = fovy.get<float>();
         entity.cameraComponent.projection = projection.get<int>();

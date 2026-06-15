@@ -24,14 +24,20 @@ struct MaterialComponent {
   float opacity{1.0F};
 };
 
+struct MeshFilterComponent {
+  std::string geometry{"Cube"};
+};
+
 struct Entity {
   std::string id;
   bool isCamera = false;
   bool isTransform = false;
   bool isMeshRenderer = false;
+  bool isMeshFilter = false;
   CameraComponent cameraComponent{};
   TransformComponent transformComponent{};
   MaterialComponent materialComponent{};
+  MeshFilterComponent meshFilterComponent{};
 };
 
 struct Scene {

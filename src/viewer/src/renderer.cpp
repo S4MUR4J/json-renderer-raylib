@@ -1,7 +1,6 @@
 ﻿#include "renderer.h"
 
-#include <string>
-
+#include "component_utils.h"
 #include "raylib.h"
 
 Renderer::Renderer() : _sceneRenderEnable(true), _guiRenderEnable(true) {
@@ -29,25 +28,19 @@ auto Renderer::render(const Scene& scene, const Camera& camera) const -> void {
   EndDrawing();
 }
 
-static auto HexToColor(const std::string& hex, float opacity) -> Color {
-  const unsigned long rgb = std::stoul(hex.substr(1), nullptr, 16);
-  return Color{
-      .r = static_cast<unsigned char>(rgb >> 16 & 0xFF),
-      .g = static_cast<unsigned char>(rgb >> 8 & 0xFF),
-      .b = static_cast<unsigned char>(rgb & 0xFF),
-      .a = static_cast<unsigned char>(opacity * 255.0F),
-  };
-}
 
 auto Renderer::renderScene(const Scene& scene) -> void {
   for (const auto& entity : scene.entities) {
-    if (!entity.isMeshRenderer) { continue;
-}
+    if (!entity.isMeshRenderer) {
+      continue;
+    }
 
-    const auto* const transform = &entity.transformComponent;
+    const auto& pos   = entity.transformComponent.position;
+    const auto& scale = entity.transformComponent.scale;
     const Color color = HexToColor(entity.materialComponent.color, entity.materialComponent.opacity);
-    DrawCube(transform->position, transform->scale.x, transform->scale.y, transform->scale.z, color);
-    DrawCubeWires(transform->position, transform->scale.x, transform->scale.y, transform->scale.z, GRAY);
+    const std::string& geometry = entity.isMeshFilter ? entity.meshFilterComponent.geometry : "Cube";
+
+    DrawShape(geometry, pos, scale, color);
   }
 }
 
